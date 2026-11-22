@@ -78,7 +78,7 @@ scripts/package.sh 1.0.0   # unsigned package and Web Store zip in dist/
 test/host.sh "dist/root/Library/Application Support/OpenInNews/open-in-news-host"
 ```
 
-`test/host.sh` checks the helper's message framing and input validation without opening News. CI runs it on macOS, and it lints the shell scripts and the extension on Linux. See [RELEASING.md](RELEASING.md) for signed releases and the Chrome Web Store.
+`test/host.sh` checks the helper's message framing and input validation without opening News. CI runs it on macOS, and it lints the shell scripts and the extension on Linux.
 
 ## License
 
