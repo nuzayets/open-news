@@ -38,7 +38,7 @@ To create them:
 
 The extension ID `kjbmejeekbfdmblfpoflkamecpkhcbeb` comes from the public key in `extension/manifest.json`. The matching private key is kept outside the repository. The packaged helper only accepts messages from this ID, so the Store listing must keep it.
 
-**First upload:** add the private key to the release zip as `key.pem`. The Store derives the extension ID from it:
+**First upload:** add the private key to the release zip as `key.pem`. The Store derives the extension ID from it. The key must be unencrypted PKCS#8 (`BEGIN PRIVATE KEY`); the Store rejects PKCS#1 (`BEGIN RSA PRIVATE KEY`), which `openssl pkcs8 -topk8 -nocrypt` converts:
 
 ```sh
 cp open-in-news-extension-1.0.0.zip first-upload.zip
