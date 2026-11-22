@@ -9,7 +9,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Shellcheck
         run: shellcheck install.sh test/host.sh scripts/package.sh
       - name: Check extension
@@ -22,7 +22,7 @@ jobs:
   host:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build unsigned package
         run: scripts/package.sh 1.0.0
       - name: Test native host
