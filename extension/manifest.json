@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Open in News",
+  "version": "1.0",
+  "description": "Open the current page or a link in Apple News.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApnZqoeVlUqkgqtLJy6FpYFI4Dm55i+kOl0bCC8rLXXJi4EtD2Up6RGBI4pB1qPc+TVuP51/CcGjoAtxwtcLEmvD4aALT7lcAdkBVRbOsCzo6SUG+WrZ81vV2wnjOuBQiwGdA+rUWDy/OOZLfBaSJ8sext14mY5v6rMW7BJDZnTWZAJwpD66D5IQ9VNs5ptPVlByiU4QBjzAn3RQbarx5jKJ830OhVL6Mn5tAxaw0DGMo7/zBMGRrbpGPNmAXHUt42fyzvAbqPpdx6peORuou4f5YD9Z+6qdJoYhv0lBNYGC0qwk/EA3shOLv5egbRNzA9Ffa0EOXoVjPbBCgqJEN1QIDAQAB",
+  "permissions": ["activeTab", "contextMenus", "nativeMessaging"],
+  "background": { "service_worker": "background.js" },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": {
+    "default_title": "Open in News",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+  }
+}

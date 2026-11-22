@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Shellcheck
+        run: shellcheck install.sh test/host.sh
+      - name: Check extension
+        run: |
+          node --check extension/background.js
+          node -e 'const m = require("./extension/manifest.json"); const fs = require("fs");
+            for (const p of [...Object.values(m.icons), ...Object.values(m.action.default_icon)])
+              if (!fs.existsSync("extension/" + p)) throw new Error("missing icon " + p);'
+
+  host:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build native host
+        run: swiftc -O host/OpenInNewsHost.swift -o open-in-news-host
+      - name: Test native host
+        run: test/host.sh ./open-in-news-host
