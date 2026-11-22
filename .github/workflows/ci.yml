@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Shellcheck
-        run: shellcheck install.sh test/host.sh
+        run: shellcheck install.sh test/host.sh scripts/package.sh
       - name: Check extension
         run: |
           node --check extension/background.js
@@ -23,7 +23,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build native host
-        run: swiftc -O host/OpenInNewsHost.swift -o open-in-news-host
+      - name: Build unsigned package
+        run: scripts/package.sh 1.0.0
       - name: Test native host
-        run: test/host.sh ./open-in-news-host
+        run: test/host.sh "dist/root/Library/Application Support/OpenInNews/open-in-news-host"

@@ -17,25 +17,27 @@ Simply swapping the URL scheme to `applenews://` doesn't work: News.app opens on
 
 ## Requirements
 
-- macOS with the News app (News must be available in your region)
-- Xcode Command Line Tools, for `swiftc` (`xcode-select --install`)
+- macOS 12 or later with the News app (News must be available in your region)
 - Google Chrome or Brave
 
 ## Install
+
+1. **Install the helper.** Download `OpenInNews-<version>.pkg` from the [latest release](https://github.com/nuzayets/open-news/releases/latest) and open it. The package is signed and notarized by Apple. It installs the helper into `/Library/Application Support/OpenInNews/` and registers it for Google Chrome (every channel), Brave and Chromium.
+2. **Install the extension.** Until the Chrome Web Store listing is live, load it unpacked: clone this repository, open `chrome://extensions` or `brave://extensions`, turn on **Developer mode**, click **Load unpacked**, and choose the `extension/` folder.
+
+If you previously ran `install.sh`, remove its per-user registrations first (see [Uninstall](#uninstall)). Browsers prefer them over the package's system-wide ones.
+
+The extension has a fixed ID (`kjbmejeekbfdmblfpoflkamecpkhcbeb`), both unpacked and from the Web Store. The helper only accepts messages from that ID.
+
+### Build from source instead
+
+With Xcode Command Line Tools installed (`xcode-select --install`), run:
 
 ```sh
 ./install.sh
 ```
 
-This compiles the helper into `~/Library/Application Support/OpenInNews/` and registers it with every installed Chrome and Brave channel (stable, Beta, Dev, Canary, Nightly). A browser channel counts as installed only once it has been launched at least once. If you add a channel later, launch it and run the script again.
-
-Then load the extension:
-
-1. Open `chrome://extensions` or `brave://extensions`.
-2. Turn on **Developer mode**.
-3. Click **Load unpacked** and choose the `extension/` folder.
-
-The manifest's `key` gives the extension a fixed ID (`kjbmejeekbfdmblfpoflkamecpkhcbeb`). The helper only accepts messages from that ID.
+This compiles the helper into `~/Library/Application Support/OpenInNews/` and registers it for your user with every Chrome and Brave channel that has been launched at least once. If you add a channel later, launch it and run the script again.
 
 ## Use
 
@@ -51,7 +53,18 @@ If the helper can't be reached or reports an error, the toolbar button shows **!
 
 ## Uninstall
 
-Remove the extension in the browser, then delete the helper and its registrations:
+Remove the extension in the browser, then delete the helper and its registrations.
+
+If you installed the package:
+
+```sh
+sudo rm -rf "/Library/Application Support/OpenInNews"
+sudo rm -f /Library/Google/Chrome/NativeMessagingHosts/com.open_in_news.host.json \
+  "/Library/Application Support/Chromium/NativeMessagingHosts/com.open_in_news.host.json"
+sudo pkgutil --forget com.open_in_news.host
+```
+
+If you used `install.sh`:
 
 ```sh
 rm -rf ~/Library/Application\ Support/OpenInNews
@@ -61,11 +74,11 @@ rm -f ~/Library/Application\ Support/{Google/Chrome*,BraveSoftware/Brave-Browser
 ## Development
 
 ```sh
-swiftc -O host/OpenInNewsHost.swift -o open-in-news-host
-test/host.sh ./open-in-news-host
+scripts/package.sh 1.0.0   # unsigned package and Web Store zip in dist/
+test/host.sh "dist/root/Library/Application Support/OpenInNews/open-in-news-host"
 ```
 
-`test/host.sh` checks the helper's message framing and input validation without opening News. CI runs it on macOS, and it lints the shell scripts and the extension on Linux.
+`test/host.sh` checks the helper's message framing and input validation without opening News. CI runs it on macOS, and it lints the shell scripts and the extension on Linux. See [RELEASING.md](RELEASING.md) for signed releases and the Chrome Web Store.
 
 ## License
 
