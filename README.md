@@ -23,7 +23,7 @@ Simply swapping the URL scheme to `applenews://` doesn't work: News.app opens on
 ## Install
 
 1. **Install the helper.** Download `OpenInNews-<version>.pkg` from the [latest release](https://github.com/nuzayets/open-news/releases/latest) and open it. The package is signed and notarized by Apple. It installs the helper into `/Library/Application Support/OpenInNews/` and registers it for Google Chrome (every channel), Brave and Chromium.
-2. **Install the extension.** Until the Chrome Web Store listing is live, load it unpacked: clone this repository, open `chrome://extensions` or `brave://extensions`, turn on **Developer mode**, click **Load unpacked**, and choose the `extension/` folder.
+2. **Install the extension** from the [Chrome Web Store](https://chromewebstore.google.com/detail/open-in-news/kjbmejeekbfdmblfpoflkamecpkhcbeb). It works in both Chrome and Brave. To run it from source instead, open `chrome://extensions` or `brave://extensions`, turn on **Developer mode**, click **Load unpacked**, and choose the `extension/` folder.
 
 If you previously ran `install.sh`, remove its per-user registrations first (see [Uninstall](#uninstall)). Browsers prefer them over the package's system-wide ones.
 
